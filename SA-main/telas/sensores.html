@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Sensores | FerroHub</title>
+
+    <link rel="stylesheet" href="../styles/sensores.css" />
+  </head>
+
+  <body>
+    <!-- =========================
+         MODAL
+    ========================== -->
+
+    <div class="modal" id="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div>
+            <span class="modal-subtitulo">GERENCIAMENTO</span>
+            <h2 id="tituloModal">Adicionar sensor</h2>
+          </div>
+
+          <button class="fechar-modal" id="fecharModal">&times;</button>
+        </div>
+
+        <label for="numeroSensor">Número do sensor</label>
+        <input type="number" id="numeroSensor" placeholder="Ex.: 10" />
+
+        <label for="tipoSensor">Tipo do sensor</label>
+        <input type="text" id="tipoSensor" placeholder="Ex.: Indutivo" />
+
+        <label for="tremSensor">Trem vinculado</label>
+        <input type="text" id="tremSensor" placeholder="Ex.: Trem 01" />
+
+        <div class="linha-inputs">
+          <div>
+            <label for="valorLeitura">Última leitura</label>
+
+            <input
+              type="number"
+              id="valorLeitura"
+              step="any"
+              placeholder="Ex.: 72"
+            />
+          </div>
+
+          <div>
+            <label for="unidadeLeitura">Unidade</label>
+
+            <input type="text" id="unidadeLeitura" placeholder="Ex.: mm" />
+          </div>
+        </div>
+
+        <div class="linha-inputs">
+          <div>
+            <label for="minimoEsperado">Mínimo esperado</label>
+
+            <input
+              type="number"
+              id="minimoEsperado"
+              step="any"
+              placeholder="Ex.: 0"
+            />
+          </div>
+
+          <div>
+            <label for="maximoEsperado">Máximo esperado</label>
+
+            <input
+              type="number"
+              id="maximoEsperado"
+              step="any"
+              placeholder="Ex.: 100"
+            />
+          </div>
+        </div>
+
+        <div class="botoes-modal">
+          <button type="button" id="cancelar" class="btn-cancelar">
+            Cancelar
+          </button>
+
+          <button type="button" id="salvar" class="btn-salvar">
+            Salvar sensor
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================
+         TOPO
+    ========================== -->
+
+    <header class="topbar">
+      <button class="menu-btn" id="menuBtn" aria-label="Abrir menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <h1>FerroHub</h1>
+    </header>
+
+    <!-- =========================
+         MENU LATERAL
+    ========================== -->
+
+    <aside class="sidebar" id="sidebar">
+      <nav>
+        <a href="locomotivas.html" class="side-link">
+          <img src="../assets/locomotiva.png" alt="" />
+          <span>Locomotivas</span>
+        </a>
+
+        <a href="relatorios.html" class="side-link">
+          <img src="../assets/relatorio.webp" alt="" />
+          <span>Relatórios</span>
+        </a>
+
+        <a href="sensores.html" class="side-link ativo">
+          <img src="../assets/sensores.webp" alt="" />
+          <span>Sensores</span>
+        </a>
+
+        <a href="usuarios.html" class="side-link">
+          <img src="../assets/usuarios.png" alt="" />
+          <span>Usuários</span>
+        </a>
+      </nav>
+    </aside>
+
+    <div class="overlay" id="overlay"></div>
+
+    <!-- =========================
+         CONTEÚDO
+    ========================== -->
+
+    <main>
+      <div class="container">
+        <div class="cabecalho-pagina">
+          <div>
+            <span class="eyebrow"> MONITORAMENTO </span>
+
+            <h2 class="titulo">Sensores</h2>
+
+            <p class="descricao">
+              Acompanhe os sensores cadastrados e suas últimas leituras.
+            </p>
+          </div>
+
+          <button class="btn-adicionar" id="btnAdicionar">
+            <span>+</span>
+            Adicionar sensor
+          </button>
+        </div>
+
+        <!-- =========================
+                 RESUMO
+            ========================== -->
+
+        <section class="resumo">
+          <div class="resumo-card">
+            <div class="resumo-icone azul">
+              <span>◉</span>
+            </div>
+
+            <div>
+              <strong id="totalSensores">0</strong>
+              <span>Total de sensores</span>
+            </div>
+          </div>
+
+          <div class="resumo-card">
+            <div class="resumo-icone verde">
+              <span>✓</span>
+            </div>
+
+            <div>
+              <strong id="sensoresNormais">0</strong>
+              <span>Dentro do intervalo</span>
+            </div>
+          </div>
+
+          <div class="resumo-card">
+            <div class="resumo-icone vermelho">
+              <span>!</span>
+            </div>
+
+            <div>
+              <strong id="sensoresAlerta">0</strong>
+              <span>Fora do intervalo</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- =========================
+                 FILTROS
+            ========================== -->
+
+        <section class="filtros">
+          <div class="campo-busca">
+            <span>⌕</span>
+
+            <input
+              type="text"
+              id="buscaSensor"
+              placeholder="Buscar sensor..."
+            />
+          </div>
+
+          <select id="filtroTrem">
+            <option value="todos">Todos os trens</option>
+          </select>
+
+          <select id="filtroTipo">
+            <option value="todos">Todos os tipos</option>
+          </select>
+
+          <select id="filtroStatus">
+            <option value="todos">Todas as situações</option>
+
+            <option value="normal">Dentro do intervalo</option>
+
+            <option value="alerta">Fora do intervalo</option>
+          </select>
+        </section>
+
+        <!-- =========================
+                 PAINEL
+            ========================== -->
+
+        <section class="painel">
+          <div class="painel-header">
+            <div>
+              <h3>Sensores cadastrados</h3>
+
+              <span id="contadorResultados"> 0 sensores encontrados </span>
+            </div>
+          </div>
+
+          <div class="grid" id="gridSensores"></div>
+
+          <div class="estado-vazio" id="estadoVazio" style="display: none">
+            <div class="vazio-icone">◌</div>
+
+            <h3>Nenhum sensor encontrado</h3>
+
+            <p>Tente alterar os filtros ou cadastrar um novo sensor.</p>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script src="../scripts/sensores.js"></script>
+  </body>
+</html>
